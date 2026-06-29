@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <style>
+        body { font-family: Arial; background:#f4f4f4; margin:0; padding:20px; }
+        .cards { display:flex; gap:20px; margin-bottom:20px; }
+        .card { flex:1; padding:20px; border-radius:10px; color:white; text-align:center; }
+        .income { background:#27ae60; } .expense { background:#e74c3c; } .balance { background:#2980b9; }
+        form { background:white; padding:20px; border-radius:10px; margin-bottom:20px; }
+        input, select { padding:8px; margin:5px; }
+        table { width:100%; background:white; border-collapse:collapse; }
+        th, td { padding:10px; border-bottom:1px solid #ddd; text-align:left; }
+        button { padding:8px 15px; background:#2980b9; color:white; border:none; border-radius:5px; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <h1>💰 Smart Expense Tracker</h1>
+    <a href="/logout">Logout</a>
+    <div class="cards">
+        <div class="card income"><h3>Income</h3><p>₹{{ income }}</p></div>
+        <div class="card expense"><h3>Expense</h3><p>₹{{ expense }}</p></div>
+        <div class="card balance"><h3>Balance</h3><p>₹{{ balance }}</p></div>
+    </div>
+    <form action="/add" method="POST">
+        <select name="type"><option value="income">Income</option><option value="expense">Expense</option></select>
+        <input type="text" name="category" placeholder="Category" required>
+        <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+        <button type="submit">Add Transaction</button>
+    </form>
+    <table>
+        <tr><th>Type</th><th>Category</th><th>Amount</th><th>Date</th></tr>
+        {% for t in transactions %}
+        <tr><td>{{ t[0] }}</td><td>{{ t[1] }}</td><td>₹{{ t[2] }}</td><td>{{ t[3] }}</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
